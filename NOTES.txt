@@ -1,0 +1,24 @@
+Three+React Helpers (lots of useful stuff here) - https://github.com/pmndrs/drei - has a way to provide into the canvas component
+
+Touch gestures - https://github.com/pmndrs/use-gesture
+
+GUI - https://github.com/pmndrs/leva
+
+Middleware - https://www.npmjs.com/package/mst-middlewares?activeTab=readme
+This has undo manager and other great things
+
+// For optimisation (especially events?)
+import copy from "fast-copy";
+or object pools
+
+https://github.com/AriaFallah/mobx-store - for undo redo and persistence? Also for querying too (search?) ?
+
+//
+
+
+One orthogonal camera for actual use - wrapped in a helper
+
+One perspective? Camera for debugging, watches the movements of orthogonal camera.
+
+//
+
