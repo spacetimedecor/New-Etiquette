@@ -4,14 +4,17 @@ import RootNode from "../models/nodes/rootNode";
 import {NodeNames} from "../defaultSettings";
 import {AppStore} from "./app";
 import {injectStores} from "@mobx-devtools/tools";
+import {CamerasStore} from "./cameras";
 
 export class RootStore {
 	NodesStore;
 	AppStore;
+	CamerasStore;
 
 	constructor() {
-		this.NodesStore = new NodesStore();
-		this.AppStore = new AppStore();
+		this.NodesStore = new NodesStore(this);
+		this.AppStore = new AppStore(this);
+		this.CamerasStore = new CamerasStore(this);
 	}
 }
 

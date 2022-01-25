@@ -1,30 +1,28 @@
 import {Canvas, useFrame} from "@react-three/fiber";
-import {rootStore, StoreProvider} from './src/stores';
+import {rootStore, StoreProvider, useStore} from './src/stores';
 import {NodeTypeSwitch} from "./src/components/Nodes";
-import {OrbitControls, OrthographicCamera, useHelper} from '@react-three/drei/native'
+import {OrbitControls, OrthographicCamera, PerspectiveCamera, useHelper} from '@react-three/drei';
+// import {CameraHelper} from "three";
 
 import "./App.css";
 import {createRef, useEffect, useRef} from "react";
-import {BoxHelper, CameraHelper, Object3D} from "three";
+import {BoxHelper, CameraHelper, Object3D, Vector3} from "three";
 import {VertexNormalsHelper} from "three/examples/jsm/helpers/VertexNormalsHelper";
+import Cameras from "./src/components/Cameras";
+
+
+// const [light, set] = useState()
+// return (
+//   <>
+//     <light ref={set} />
+//     {light && <foo light={light} />
 
 export default function App() {
-
-
-  // const cameraRef = useRef();
-  //
-  // useEffect(() => {
-  //   const test = cameraRef.current;
-  // }, [cameraRef.current])
-
-  // useHelper(cameraRef, CameraHelper, 1, 'hotpink');
-
   return (
     <StoreProvider store={rootStore} >
-      <Canvas orthographic camera={{ zoom: 25, position: [0, 0, 100] }}>
-        {/*<fog attach="fog" args={["floralwhite", 0, 20]} />*/}
-        {/*<OrthographicCamera ref={cameraRef} zoom={50} position={[0, 0, 100]} />*/}
-        <gridHelper args={[30, 30, 30]} />
+      <Canvas >
+        <Cameras />
+        <gridHelper args={[100, 25, 10]} />
         <OrbitControls />
         <ambientLight />
         {
@@ -35,3 +33,4 @@ export default function App() {
     </StoreProvider>
   );
 }
+

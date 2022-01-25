@@ -1,4 +1,5 @@
 import {NodeSettings} from "./models/nodes/node";
+import {OrthographicSettings, PerspectiveSettings} from "./stores/cameras";
 
 export enum NodeNames {
 	Root,
@@ -14,7 +15,25 @@ const nodeSettings: NodeSettings = {
 	springConfig: {friction: 100}
 }
 
+const orthographicSettings: OrthographicSettings = {
+	zoom: 25,
+	position: [0, 0, 10],
+	near: 0.1,
+	far: 10,
+}
+
+const perspectiveSettings: PerspectiveSettings = {
+	zoom: 25,
+	position: [-3500, 2000, 3500],
+	near: 0.1,
+	far: 10000,
+}
+
 const defaultSettings = {
+	cameraStore: {
+		orthographicSettings,
+		perspectiveSettings
+	},
 	appSettings: {
 		debug: true,
 		initialLevel: 0,
