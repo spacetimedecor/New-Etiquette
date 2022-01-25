@@ -1,21 +1,9 @@
-import {Canvas, useFrame} from "@react-three/fiber";
-import {rootStore, StoreProvider, useStore} from './src/stores';
+import {Canvas} from "@react-three/fiber";
+import {rootStore, StoreProvider} from './src/stores';
 import {NodeTypeSwitch} from "./src/components/Nodes";
-import {OrbitControls, OrthographicCamera, PerspectiveCamera, useHelper} from '@react-three/drei';
-// import {CameraHelper} from "three";
-
-import "./App.css";
-import {createRef, useEffect, useRef} from "react";
-import {BoxHelper, CameraHelper, Object3D, Vector3} from "three";
-import {VertexNormalsHelper} from "three/examples/jsm/helpers/VertexNormalsHelper";
+import {OrbitControls} from '@react-three/drei';
 import Cameras from "./src/components/Cameras";
-
-
-// const [light, set] = useState()
-// return (
-//   <>
-//     <light ref={set} />
-//     {light && <foo light={light} />
+import "./App.css";
 
 export default function App() {
   return (
