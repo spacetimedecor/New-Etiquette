@@ -1,12 +1,16 @@
-import {NodeSettings} from "./models/nodes/node";
-import {OrthographicSettings, PerspectiveSettings} from "./stores/cameras";
+import {
+	OrthographicCameraSettingsType,
+	PerspectiveCameraSettingsType
+} from "./models/settings/Cameras";
+import {generateUUID} from "three/src/math/MathUtils";
+import {EnvironmentSettingsType} from "./models/environment";
 
 export enum NodeNames {
 	Root,
 	Standard,
 }
 
-const nodeSettings: NodeSettings = {
+const nodeSettings = {
 	id: '',
 	color: '#848484',
 	name: 'Node',
@@ -15,36 +19,40 @@ const nodeSettings: NodeSettings = {
 	springConfig: {friction: 100}
 }
 
-const orthographicSettings: OrthographicSettings = {
+const orthographicSettings: OrthographicCameraSettingsType = {
 	zoom: 25,
 	position: [0, 0, 10],
 	near: 0.1,
 	far: 10,
 }
 
-const perspectiveSettings: PerspectiveSettings = {
+const perspectiveSettings: PerspectiveCameraSettingsType = {
 	zoom: 25,
 	position: [-3500, 2000, 3500],
 	near: 0.1,
 	far: 10000,
 }
 
+const environmentSettings: EnvironmentSettingsType = {
+
+}
+
 const defaultSettings = {
-	cameraStore: {
+	camerasSettings: {
+		id: generateUUID(),
 		orthographicSettings,
 		perspectiveSettings
 	},
 	appSettings: {
+		id: generateUUID(),
 		debug: true,
-		initialLevel: 0,
+		currentLevel: 0,
 	},
+	environmentSettings,
 	nodeSettings,
 	rootNodeSettings: {
 
 	},
-	environmentSettings: {
-
-	}
 }
 
 export default defaultSettings;

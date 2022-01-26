@@ -11,11 +11,15 @@ This has undo manager and other great things
 import copy from "fast-copy";
 or object pools
 
+// Positional audio???
+
 https://github.com/AriaFallah/mobx-store - for undo redo and persistence? Also for querying too (search?) ?
 
 https://github.com/yomotsu/camera-controls
 
 // NEXT
+
+Levels system:
 
 rather than changing node sizes, the simplest way seems to be to have
 the same sized nodes far back behind the closer ones? Then we can keep the
@@ -23,3 +27,4 @@ camera zoom etc as it is and just animate its location on the z-axis.
 
 On the contrary, maybe it'd be simpler to keep everything on one plane,
 and just change the zoom like a normal boy.
+
