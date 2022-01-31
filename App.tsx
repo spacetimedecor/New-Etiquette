@@ -14,8 +14,8 @@ export default function App() {
         <OrbitControls />
         <ambientLight />
         {
-          rootStore.NodesStore?.rootNode &&
-          <NodeTypeSwitch model={rootStore.NodesStore.rootNode} />
+          rootStore.Nodes.rootNode &&
+          <NodeTypeSwitch model={rootStore.Nodes.rootNode} />
         }
       </Canvas>
     </StoreProvider>

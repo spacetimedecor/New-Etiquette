@@ -7,28 +7,29 @@ const Cameras = () => {
 	const groupRef = useRef<Object3D>();
 	useHelper(groupRef, CameraHelper, 1, 'red');
 	const {
-		CamerasStore: {
-			perspectiveSettings,
-			perspectiveIsDefault,
-			orthographicSettings,
-			orthographicIsDefault,
+		Cameras,
+		Cameras: {
+			orthographicCameraSettings,
+			perspectiveCameraSettings,
 		}
 	} = useStore();
+	const [perspectiveX, perspectiveY, perspectiveZ] = perspectiveCameraSettings.position;
+	const [orthographicX, orthographicY, orthographicZ] = orthographicCameraSettings.position;
 	return <>
 		<PerspectiveCamera
-			makeDefault={perspectiveIsDefault}
-			position={perspectiveSettings.position}
-			near={perspectiveSettings.near}
-			far={perspectiveSettings.far}
-			zoom={perspectiveSettings.zoom}
+			makeDefault={Cameras.perspectiveIsDefault}
+			position={[perspectiveX, perspectiveY, perspectiveZ]}
+			near={perspectiveCameraSettings.near}
+			far={perspectiveCameraSettings.far}
+			zoom={perspectiveCameraSettings.zoom}
 		/>
 		<OrthographicCamera
 			ref={groupRef}
-			makeDefault={orthographicIsDefault}
-			position={orthographicSettings.position}
-			near={orthographicSettings.near}
-			far={orthographicSettings.far}
-			zoom={orthographicSettings.zoom}
+			makeDefault={Cameras.orthographicIsDefault}
+			position={[orthographicX, orthographicY, orthographicZ]}
+			near={orthographicCameraSettings.near}
+			far={orthographicCameraSettings.far}
+			zoom={orthographicCameraSettings.zoom}
 		/>
 	</>
 }

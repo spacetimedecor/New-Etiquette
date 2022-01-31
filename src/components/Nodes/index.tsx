@@ -1,8 +1,8 @@
 import {NodeNames} from "../../defaultSettings";
 import NodeComponent from "./Node";
-import NodeModel from "../../models/nodes/node";
 import RootNodeComponent from "./RootNode";
 import React from "react";
+import {NodeType} from "../../stores/Nodes";
 
 const NodeTypeMap = {
 	[NodeNames.Standard]: NodeComponent,
@@ -10,11 +10,11 @@ const NodeTypeMap = {
 }
 
 export interface NodeProps {
-	model: NodeModel;
+	model: NodeType;
 }
 
-export const NodeTypeSwitch = (props: NodeProps) => {
-	const Component = NodeTypeMap[props.model.nodeSettings.type];
-	return <Component model={props.model} />
+export const NodeTypeSwitch = ({model, model: {type}}: NodeProps) => {
+	const Component = NodeTypeMap[type];
+	return <Component model={model} />
 };
 

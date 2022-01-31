@@ -1,14 +1,8 @@
-import {types} from "mobx-state-tree";
-import {EnvironmentModel} from "../models/environment";
-
-// Mixins
-const WithEnvironment = types
-	.model({
-		environment: EnvironmentModel
-	});
+import {Instance, types} from "mobx-state-tree";
+import {NodeNames} from "../defaultSettings";
 
 // Spring config
-const SpringConfig = types.model({
+export const SpringConfig = types.model({
 	friction: 25
 })
 
@@ -16,10 +10,10 @@ const SpringConfig = types.model({
 const Node = types
 	.model("Node", {
 		id: types.identifier,
+		type: types.enumeration("Type", [...Object.values(NodeNames)]),
 		name: types.string,
 		color: types.string,
-		position: types.array(types.number),
-		springConfig: types.map(SpringConfig)
+		position: types.array(types.number)
 	})
 	.actions((self) => ({
 		changePosition(to: [x: number, y: number, z: number]) {
@@ -28,6 +22,9 @@ const Node = types
 			self.position[2] = to[2];
 		}
 	}));
+
+export type NodeType =
+	Instance<typeof Node>;
 
 let StandardNode = types
 	.compose(
@@ -50,21 +47,31 @@ let RootNode = types
 // Adding children functionality after node type def so that we avoid circular refs
 const Children = types
 	.model("Children", {
-		children: types.array(
-			types.union(
-				Node,
-				StandardNode
-			)
+		children: types.optional(
+			types.array(
+				types.union(
+					Node,
+					StandardNode
+				)
+			), []
 		)
 	});
 
-RootNode = types.compose(RootNode, Children, WithEnvironment);
-StandardNode = types.compose(StandardNode, Children, WithEnvironment);
+RootNode = types.compose(RootNode, Children);
+StandardNode = types.compose(StandardNode, Children);
+
+export type RootNodeType =
+	Instance<typeof RootNode> &
+	Instance<typeof Children>;
+
+export type StandardNodeType =
+	Instance<typeof StandardNode> &
+	Instance<typeof Children>;
 
 // Nodes
 const NodesStore = types.model("Nodes", {
 	id: types.identifier,
-	rootNode: types.reference(RootNode),
+	rootNode: RootNode,
 })
 
 export default { NodesStore, RootNode, StandardNode };

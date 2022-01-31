@@ -1,9 +1,9 @@
 import {types} from "mobx-state-tree";
 
 import {
-	OrthographicCameraSettingsModel,
+	OrthographicCameraSettings,
 	OrthographicCameraSettingsType,
-	PerspectiveCameraSettingsModel,
+	PerspectiveCameraSettings,
 	PerspectiveCameraSettingsType,
 } from "../models/settings/Cameras";
 import {rootStore} from "./index";
@@ -11,15 +11,15 @@ import {rootStore} from "./index";
 const Cameras = types
 	.model("Cameras", {
 		id: types.identifier,
-		orthographicCameraSettings: OrthographicCameraSettingsModel,
-		perspectiveCameraSettings: PerspectiveCameraSettingsModel,
+		orthographicCameraSettings: OrthographicCameraSettings,
+		perspectiveCameraSettings: PerspectiveCameraSettings,
 	})
 	.actions((self) => ({
-		setOrthographicCameraSettings(to: OrthographicCameraSettingsType){
-			self.orthographicCameraSettings.set<OrthographicCameraSettingsType>(to);
+		setOrthographicCameraSettings(to: Partial<OrthographicCameraSettingsType>){
+			Object.assign(self.orthographicCameraSettings, to);
 		},
-		setPerspectiveCameraSettings(to: PerspectiveCameraSettingsType){
-			self.perspectiveCameraSettings.set<PerspectiveCameraSettingsType>(to);
+		setPerspectiveCameraSettings(to: Partial<PerspectiveCameraSettingsType>){
+			Object.assign(self.perspectiveCameraSettings, to);
 		},
 	}))
 	.views((self) => ({

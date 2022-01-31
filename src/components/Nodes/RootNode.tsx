@@ -1,18 +1,20 @@
 import { a } from "@react-spring/three";
-import RootNode from "../../models/nodes/rootNode";
-import Node from "../../models/nodes/node";
 import {NodeProps, NodeTypeSwitch} from "./index";
 import {observer} from "mobx-react-lite";
 import {springPosition} from "../../utils/hooks/springPosition";
 import {useRef} from "react";
 import {BoxHelper, Object3D} from "three";
 import {useHelper} from "@react-three/drei/native";
+import {RootNodeType, NodeType} from "../../stores/Nodes";
 
 const RootNodeComponent = observer((props: NodeProps) => {
-	const RootNodeModel: RootNode = props.model as RootNode;
-	const { nodeSettings: { name, position, springConfig }, children } = RootNodeModel;
+	const RootNodeModel = props.model as RootNodeType;
+	const { name, position, children } = RootNodeModel;
 
-	const [spring] = springPosition(position, springConfig);
+	const [spring] = springPosition(
+		[position[0], position[1], position[2]],
+		{friction: 25}
+	);
 	const groupRef = useRef<Object3D>();
 
 	useHelper(groupRef, BoxHelper, 1, "yellow");
@@ -31,7 +33,7 @@ const RootNodeComponent = observer((props: NodeProps) => {
 				<meshStandardMaterial color={"orange"} />
 			</mesh>
 			{
-				children.map((childNode: Node) =>
+				children.map((childNode: NodeType) =>
 					<NodeTypeSwitch model={childNode} />
 				)
 			}

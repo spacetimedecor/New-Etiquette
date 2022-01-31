@@ -13,8 +13,6 @@ or object pools
 
 // Positional audio???
 
-https://github.com/AriaFallah/mobx-store - for undo redo and persistence? Also for querying too (search?) ?
-
 https://github.com/yomotsu/camera-controls
 
 // NEXT

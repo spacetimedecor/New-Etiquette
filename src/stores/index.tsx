@@ -5,52 +5,44 @@ import {injectStores} from "@mobx-devtools/tools";
 import {createContext, ReactNode, useContext} from "react";
 import {Instance} from "mobx-state-tree";
 import Cameras from "./Cameras";
-import {
-	OrthographicCameraSettings,
-	OrthographicCameraSettingsModel,
-	PerspectiveCameraSettings,
-	PerspectiveCameraSettingsModel
-} from "../models/settings/Cameras";
 import {generateUUID} from "three/src/math/MathUtils";
-import Nodes from "./Nodes";
-const {RootNode, NodesStore, StandardNode } = Nodes;
+import Nodes, {RootNodeType} from "./Nodes";
+import {OrthographicCameraSettings, PerspectiveCameraSettings} from "../models/settings/Cameras";
+const {RootNode, NodesStore } = Nodes;
 
 const {
 	appSettings,
 	nodeSettings,
 	camerasSettings: {
-		id: camerasId,
 		orthographicSettings,
-		perspectiveSettings
-	}
+		perspectiveSettings,
+	},
 } = defaultSettings;
 
-export const appStore = App.create(appSettings);
+export const appStore = App.create({
+	...appSettings,
+	id: generateUUID(),
+});
 export const camerasStore = Cameras.create({
-	id: camerasId,
-	orthographicCameraSettings: OrthographicCameraSettingsModel.create(
-		new OrthographicCameraSettings(orthographicSettings)
-	),
-	perspectiveCameraSettings: PerspectiveCameraSettingsModel.create(
-		new PerspectiveCameraSettings(perspectiveSettings)
-	),
+	id: generateUUID(),
+	orthographicCameraSettings: OrthographicCameraSettings.create(orthographicSettings),
+	perspectiveCameraSettings: PerspectiveCameraSettings.create(perspectiveSettings),
 })
-
 
 const rootNode = RootNode.create({
 	...nodeSettings,
 	id: generateUUID()
-})
+});
 
 const nodesStore = NodesStore.create({
 	id: generateUUID(),
-	rootNode: rootNode.id,
+	rootNode: rootNode,
 });
 
 export const rootStore = Root.create({
-	App: appStore.id,
-	Cameras: camerasStore.id,
-	Nodes: nodesStore.id,
+	App: appStore,
+	Cameras: camerasStore,
+	Nodes: nodesStore,
 });
 
 
@@ -62,5 +54,7 @@ const StoreContext = createContext(rootStore);
 export const useStore = () => useContext(StoreContext);
 export const StoreProvider = ({store, children}: {store: Instance<typeof rootStore>; children: ReactNode}) =>
 	<StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
+
+
 
 

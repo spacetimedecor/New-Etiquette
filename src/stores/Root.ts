@@ -6,9 +6,9 @@ const {NodesStore} = Nodes;
 
 const Root = types
 	.model("Root", {
-		App: types.reference(AppStore),
-		Cameras: types.reference(CamerasStore),
-		Nodes: types.reference(NodesStore)
+		App: AppStore,
+		Nodes: NodesStore,
+		Cameras: CamerasStore,
 	});
 
 export default Root;
