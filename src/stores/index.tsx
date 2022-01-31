@@ -3,10 +3,11 @@ import App from "./App";
 import defaultSettings from "../defaultSettings";
 import {injectStores} from "@mobx-devtools/tools";
 import {createContext, ReactNode, useContext} from "react";
-import {Instance} from "mobx-state-tree";
+import {addMiddleware, Instance} from "mobx-state-tree";
+import { actionLogger, UndoManager } from "mst-middlewares";
 import Cameras from "./Cameras";
 import {generateUUID} from "three/src/math/MathUtils";
-import Nodes, {RootNodeType} from "./Nodes";
+import Nodes from "./Nodes";
 import {OrthographicCameraSettings, PerspectiveCameraSettings} from "../models/settings/Cameras";
 const {RootNode, NodesStore } = Nodes;
 
@@ -45,6 +46,7 @@ export const rootStore = Root.create({
 	Nodes: nodesStore,
 });
 
+addMiddleware(rootStore, actionLogger);
 
 injectStores({ rootStore });
 

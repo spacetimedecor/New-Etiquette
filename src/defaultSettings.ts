@@ -1,5 +1,3 @@
-import {generateUUID} from "three/src/math/MathUtils";
-
 export enum NodeNames {
 	Root = "Root",
 	Standard = "Standard",

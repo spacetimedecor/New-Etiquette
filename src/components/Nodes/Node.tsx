@@ -6,8 +6,10 @@ import {useRef} from "react";
 import {BoxHelper, Object3D} from "three";
 import {useHelper} from "@react-three/drei/native";
 import {NodeType} from "../../stores/Nodes";
+import {useStore} from "../../stores";
 
 const NodeComponent = observer((props: NodeProps) => {
+	const {History} = useStore();
 	const NodeModel = props.model as NodeType;
 	const { name, position } = NodeModel;
 
@@ -26,6 +28,9 @@ const NodeComponent = observer((props: NodeProps) => {
 			ref={groupRef}
 			onClick={() => {
 				NodeModel.changePosition([-10, -10, 0]);
+			}}
+			onDoubleClick={() => {
+				History.canUndo && History.undo();
 			}}
 		>
 			<mesh>
