@@ -4,9 +4,6 @@ Touch gestures - https://github.com/pmndrs/use-gesture
 
 GUI - https://github.com/pmndrs/leva
 
-Middleware - https://www.npmjs.com/package/mst-middlewares?activeTab=readme
-This has undo manager and other great things
-
 // For optimisation (especially events?)
 import copy from "fast-copy";
 or object pools
@@ -26,3 +23,5 @@ camera zoom etc as it is and just animate its location on the z-axis.
 On the contrary, maybe it'd be simpler to keep everything on one plane,
 and just change the zoom like a normal boy.
 
+
+https://github.com/pmndrs/drei#usecursor <-- lots of interesting stuff

@@ -5,7 +5,14 @@ const CameraSettings = types.model("CameraSettings", {
 	near: types.number,
 	far: types.number,
 	position: types.array(types.number)
-});
+})
+	.actions((self) => ({
+		changePosition(to: [x: number, y: number, z: number]) {
+			self.position[0] = to[0];
+			self.position[1] = to[1];
+			self.position[2] = to[2];
+		}
+	}));
 
 export type CameraSettingsType = Instance<typeof CameraSettings>
 

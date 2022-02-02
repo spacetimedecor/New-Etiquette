@@ -13,7 +13,7 @@ const nodeSettings = {
 }
 
 const orthographicSettings = {
-	zoom: 25,
+	zoom: 0.05,
 	position: [0, 0, 10],
 	near: 0.1,
 	far: 10,
@@ -21,7 +21,7 @@ const orthographicSettings = {
 
 const perspectiveSettings = {
 	zoom: 25,
-	position: [-3500, 2000, 3500],
+	position: [-70, 40, 70],
 	near: 0.1,
 	far: 10000,
 }

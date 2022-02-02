@@ -1,10 +1,10 @@
 import Root from "./Root";
 import App from "./App";
-import defaultSettings from "../defaultSettings";
+import defaultSettings, {NodeNames} from "../defaultSettings";
 import {injectStores} from "@mobx-devtools/tools";
 import {createContext, ReactNode, useContext} from "react";
 import {addMiddleware, Instance} from "mobx-state-tree";
-import { actionLogger, UndoManager } from "mst-middlewares";
+import { actionLogger } from "mst-middlewares";
 import Cameras from "./Cameras";
 import {generateUUID} from "three/src/math/MathUtils";
 import Nodes from "./Nodes";
@@ -32,6 +32,7 @@ export const camerasStore = Cameras.create({
 
 const rootNode = RootNode.create({
 	...nodeSettings,
+	type: NodeNames.Root,
 	id: generateUUID()
 });
 
@@ -49,8 +50,6 @@ export const rootStore = Root.create({
 addMiddleware(rootStore, actionLogger);
 
 injectStores({ rootStore });
-
-rootStore.Nodes.rootNode.changePosition([10, 10, 0]);
 
 const StoreContext = createContext(rootStore);
 export const useStore = () => useContext(StoreContext);
