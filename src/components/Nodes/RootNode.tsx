@@ -2,65 +2,39 @@ import {a, useSpring} from "@react-spring/three";
 import {NodeProps, NodeTypeSwitch} from "./index";
 import {observer} from "mobx-react-lite";
 import {springPosition} from "../../utils/hooks/springPosition";
-import {useEffect, useRef, useState} from "react";
+import {memo, useRef} from "react";
 import {BoxHelper, Object3D} from "three";
 import {useHelper} from "@react-three/drei/native";
 import {RootNodeType, NodeType} from "../../stores/Nodes";
-import {useCursor} from "@react-three/drei";
-import { useGesture } from "react-use-gesture";
-import {useStore} from "../../stores";
-import {useThree} from "@react-three/fiber";
-import {arraysEqual} from "../../utils";
-import useKeyPress from "../../utils/hooks/useKeyPress";
+import {dragAndDroppable} from "../../utils/hooks/dragAndDroppable";
 
 const RootNodeComponent = observer((props: NodeProps) => {
-	const {History} = useStore();
-	const groupRef = useRef<Object3D>();
-	const [hovered, setHover] = useState(false);
-	const [dragging, setDragging] = useState(false);
-	const springs = useSpring({ color: hovered ? '#666666' : '#333333'});
-	const { size, viewport } = useThree();
-	const aspect = size.width / viewport.width
-
+	// Model:
 	const RootNodeModel = props.model as RootNodeType;
 	const { name, position, children } = RootNodeModel;
 
+	// Element Ref:
+	const groupRef = useRef<Object3D>();
+
+	// Drag and Drop:
+	const [bindGestures, hovered] = dragAndDroppable(RootNodeModel);
+
+	// Style Interpolations:
+	const style = useSpring({ color: hovered ? '#666666' : '#333333' });
+
+	// Position Interpolations:
 	const [spring] = springPosition(
 		[position[0], position[1], position[2]],
-		{friction: 25}
+		{friction: 15}
 	);
 
-	const bind = useGesture({
-		onDragStart: () => History.startGroup(() => {}),
-		onDrag: ({ down, xy: [x, y] }) => {
-			setDragging(down);
-			const newPosition: [x: number, y: number, z: number] = [
-				(x / aspect) - (viewport.width / 2),
-				(-y / aspect) + (viewport.height / 2),
-				0
-			];
-
-			if (!arraysEqual(position, newPosition)) {
-				RootNodeModel.changePosition(newPosition);
-			}
-		},
-		onDragEnd: () => { History.stopGroup() },
-		onHover: ({ hovering }) => setHover(hovering),
-	})
-
-	useKeyPress("h", () => {
-		console.log("H");
-		History.canUndo && History.undo();
-	});
-
-	useCursor(hovered, 'grab', 'auto');
-	useCursor(dragging, 'grabbing', 'grab');
-	// useHelper(groupRef, BoxHelper, 1, "yellow");
+	// Box Helper:
+	useHelper(groupRef, BoxHelper, 1, "yellow");
 
 	return (
-		// @ts-ignore
 		<a.group
-			{...bind()}
+			// @ts-ignore
+			{...bindGestures()}
 			{...spring}
 			name={name}
 			ref={groupRef}
@@ -69,7 +43,7 @@ const RootNodeComponent = observer((props: NodeProps) => {
 			{/*Circular background*/}
 			<mesh>
 				<circleGeometry attach="geometry" args={[1, 100]} />
-				<a.meshBasicMaterial color={springs.color} />
+				<a.meshBasicMaterial color={style.color} />
 			</mesh>
 
 			{/*Border*/}
@@ -89,4 +63,4 @@ const RootNodeComponent = observer((props: NodeProps) => {
 });
 
 
-export default RootNodeComponent;
+export default memo(RootNodeComponent);

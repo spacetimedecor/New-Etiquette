@@ -1,7 +1,5 @@
 Three+React Helpers (lots of useful stuff here) - https://github.com/pmndrs/drei - has a way to provide into the canvas component
 
-Touch gestures - https://github.com/pmndrs/use-gesture
-
 GUI - https://github.com/pmndrs/leva
 
 // For optimisation (especially events?)
@@ -12,7 +10,22 @@ or object pools
 
 https://github.com/yomotsu/camera-controls
 
+
+// Cursors
+https://www.w3schools.com/cssref/tryit.asp?filename=trycss_cursor
+
+// Gestures:
+https://use-gesture.netlify.app/docs/gestures/
+
+
 // NEXT
+
+We need a UI overlay for: undo-redo, level controller, debugging
+
+
+
+
+
 
 Levels system:
 
@@ -25,3 +38,8 @@ and just change the zoom like a normal boy.
 
 
 https://github.com/pmndrs/drei#usecursor <-- lots of interesting stuff
+
+
+
+
+

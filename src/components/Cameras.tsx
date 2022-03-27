@@ -21,7 +21,7 @@ const Cameras = observer(() => {
 	const orthRef = useRef<Camera>();
 	const persRef = useRef<Camera>();
 
-	// useHelper(orthRef, CameraHelper, 1, 'red');
+	useHelper(orthRef, CameraHelper, 1, 'red');
 
 	const [perspectiveX, perspectiveY, perspectiveZ] = perspectiveCameraSettings.position;
 	const [orthographicX, orthographicY, orthographicZ] = orthographicCameraSettings.position;
