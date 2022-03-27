@@ -12,13 +12,16 @@ const Cameras = observer(() => {
 		Cameras: {
 			orthographicCameraSettings,
 			perspectiveCameraSettings,
+		},
+		App: {
+			currentLevel
 		}
 	} = useStore();
 
 	const orthRef = useRef<Camera>();
 	const persRef = useRef<Camera>();
 
-	useHelper(orthRef, CameraHelper, 1, 'red');
+	// useHelper(orthRef, CameraHelper, 1, 'red');
 
 	const [perspectiveX, perspectiveY, perspectiveZ] = perspectiveCameraSettings.position;
 	const [orthographicX, orthographicY, orthographicZ] = orthographicCameraSettings.position;
@@ -28,13 +31,13 @@ const Cameras = observer(() => {
 		{friction: 25}
 	);
 
-	const set = useThree((state) => state.set);
-
-	useEffect(() => {
-		if (!persRef.current || !orthRef.current) return;
-		set({ camera: persRef.current! });
-		persRef.current!.lookAt(orthRef.current!.position);
-	}, [persRef])
+	// const set = useThree((state) => state.set);
+	//
+	// useEffect(() => {
+	// 	if (!persRef.current || !orthRef.current) return;
+	// 	set({ camera: persRef.current! });
+	// 	persRef.current!.lookAt(orthRef.current!.position);
+	// }, [persRef])
 
 	return <>
 		<a.orthographicCamera
@@ -44,13 +47,13 @@ const Cameras = observer(() => {
 			far={orthographicCameraSettings.far}
 			zoom={orthographicCameraSettings.zoom}
 		/>
-		<a.perspectiveCamera
-			ref={persRef}
-			position={[perspectiveX, perspectiveY, perspectiveZ]}
-			near={perspectiveCameraSettings.near}
-			far={perspectiveCameraSettings.far}
-			zoom={perspectiveCameraSettings.zoom}
-		/>
+		{/*<a.perspectiveCamera*/}
+		{/*	ref={persRef}*/}
+		{/*	position={[perspectiveX, perspectiveY, perspectiveZ]}*/}
+		{/*	near={perspectiveCameraSettings.near}*/}
+		{/*	far={perspectiveCameraSettings.far}*/}
+		{/*	zoom={perspectiveCameraSettings.zoom}*/}
+		{/*/>*/}
 	</>
 })
 

@@ -1,18 +1,26 @@
-import { a } from "@react-spring/three";
+import {a, useSpring} from "@react-spring/three";
 import {NodeProps, NodeTypeSwitch} from "./index";
 import {observer} from "mobx-react-lite";
 import {springPosition} from "../../utils/hooks/springPosition";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {BoxHelper, Object3D} from "three";
 import {useHelper} from "@react-three/drei/native";
 import {RootNodeType, NodeType} from "../../stores/Nodes";
 import {useCursor} from "@react-three/drei";
-import {rootStore, useStore} from "../../stores";
+import { useGesture } from "react-use-gesture";
+import {useStore} from "../../stores";
+import {useThree} from "@react-three/fiber";
+import {arraysEqual} from "../../utils";
+import useKeyPress from "../../utils/hooks/useKeyPress";
 
 const RootNodeComponent = observer((props: NodeProps) => {
 	const {History} = useStore();
 	const groupRef = useRef<Object3D>();
 	const [hovered, setHover] = useState(false);
+	const [dragging, setDragging] = useState(false);
+	const springs = useSpring({ color: hovered ? '#666666' : '#333333'});
+	const { size, viewport } = useThree();
+	const aspect = size.width / viewport.width
 
 	const RootNodeModel = props.model as RootNodeType;
 	const { name, position, children } = RootNodeModel;
@@ -22,29 +30,55 @@ const RootNodeComponent = observer((props: NodeProps) => {
 		{friction: 25}
 	);
 
-	useCursor(hovered, 'pointer', 'auto');
-	useHelper(groupRef, BoxHelper, 1, "yellow");
+	const bind = useGesture({
+		onDragStart: () => History.startGroup(() => {}),
+		onDrag: ({ down, xy: [x, y] }) => {
+			setDragging(down);
+			const newPosition: [x: number, y: number, z: number] = [
+				(x / aspect) - (viewport.width / 2),
+				(-y / aspect) + (viewport.height / 2),
+				0
+			];
+
+			if (!arraysEqual(position, newPosition)) {
+				RootNodeModel.changePosition(newPosition);
+			}
+		},
+		onDragEnd: () => { History.stopGroup() },
+		onHover: ({ hovering }) => setHover(hovering),
+	})
+
+	useKeyPress("h", () => {
+		console.log("H");
+		History.canUndo && History.undo();
+	});
+
+	useCursor(hovered, 'grab', 'auto');
+	useCursor(dragging, 'grabbing', 'grab');
+	// useHelper(groupRef, BoxHelper, 1, "yellow");
 
 	return (
+		// @ts-ignore
 		<a.group
+			{...bind()}
 			{...spring}
 			name={name}
 			ref={groupRef}
-			onClick={() => {
-				// NodeModel.changePosition([-10, -10, 0]);
-				rootStore.Cameras.orthographicCameraSettings.changePosition([10, 20, 30]);
-			}}
-			onDoubleClick={() => {
-				History.canUndo && History.undo();
-			}}
-			onPointerOver={() => setHover(true)}
-			onPointerOut={() => setHover(false)}
 		>
-			<mesh
-			>
-				<circleGeometry args={[1, 32, 32]} />
-				<meshStandardMaterial color={"orange"} />
+
+			{/*Circular background*/}
+			<mesh>
+				<circleGeometry attach="geometry" args={[1, 100]} />
+				<a.meshBasicMaterial color={springs.color} />
 			</mesh>
+
+			{/*Border*/}
+			<mesh>
+				<ringGeometry args={[1, 1.01, 100]} />
+				<meshBasicMaterial color="white"/>
+			</mesh>
+
+			{/*Children*/}
 			{
 				children.map((childNode: NodeType) =>
 					<NodeTypeSwitch model={childNode} />

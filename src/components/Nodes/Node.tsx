@@ -18,7 +18,7 @@ const NodeComponent = observer((props: NodeProps) => {
 	const [hovered, setHover] = useState(false);
 
 	useCursor(hovered, 'pointer', 'auto');
-	useHelper(groupRef, BoxHelper, 1, "yellow");
+	// useHelper(groupRef, BoxHelper, 1, "yellow");
 	const [spring] = springPosition([position[0], position[1], position[2]], { friction: 25 });
 
 	return (
@@ -38,7 +38,7 @@ const NodeComponent = observer((props: NodeProps) => {
 		>
 			<mesh>
 				<circleGeometry args={[1, 32, 32]} />
-				<meshStandardMaterial color={"orange"} />
+				{/*<meshStandardMaterial color={"orange"} />*/}
 			</mesh>
 		</a.group>
 	);
