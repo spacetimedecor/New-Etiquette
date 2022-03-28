@@ -22,8 +22,7 @@ https://use-gesture.netlify.app/docs/gestures/
 
 We need a UI overlay for: undo-redo, level controller, debugging
 
-
-
+Probably need to spring zoom too
 
 
 
