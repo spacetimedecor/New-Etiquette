@@ -5,7 +5,7 @@ import {
   OrthographicCameraSettingsType,
   PerspectiveCameraSettings,
   PerspectiveCameraSettingsType,
-} from '../models/settings/Cameras';
+} from 'models/settings/Cameras';
 import { rootStore } from './index';
 
 const Cameras = types

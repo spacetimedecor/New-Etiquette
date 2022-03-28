@@ -1,5 +1,5 @@
 import { Instance, types } from 'mobx-state-tree';
-import { NodeNames } from '../defaultSettings';
+import { NodeNames } from 'defaultSettings';
 
 // Spring config
 export const SpringConfig = types.model({

@@ -15,6 +15,10 @@ module.exports = function (api) {
           alias: {
             hooks: './src/hooks',
             components: './src/components',
+            stores: './src/stores',
+            utils: './src/utils',
+            models: './src/models',
+            defaultSettings: './src/defaultSettings',
           },
         },
       ],

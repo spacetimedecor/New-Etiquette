@@ -3,15 +3,15 @@ import { injectStores } from '@mobx-devtools/tools';
 import { addMiddleware, Instance } from 'mobx-state-tree';
 import { actionLogger } from 'mst-middlewares';
 import { generateUUID } from 'three/src/math/MathUtils';
-import Cameras from './Cameras';
-import defaultSettings, { NodeNames } from '../defaultSettings';
-import App from './App';
-import Root from './Root';
-import Nodes from './Nodes';
 import {
   OrthographicCameraSettings,
   PerspectiveCameraSettings,
-} from '../models/settings/Cameras';
+} from 'models/settings/Cameras';
+import defaultSettings, { NodeNames } from 'defaultSettings';
+import Cameras from './Cameras';
+import App from './App';
+import Root from './Root';
+import Nodes from './Nodes';
 
 const { RootNode, NodesStore } = Nodes;
 
@@ -25,6 +25,7 @@ export const appStore = App.create({
   ...appSettings,
   id: generateUUID(),
 });
+
 export const camerasStore = Cameras.create({
   id: generateUUID(),
   orthographicCameraSettings:
@@ -33,13 +34,13 @@ export const camerasStore = Cameras.create({
     PerspectiveCameraSettings.create(perspectiveSettings),
 });
 
-const rootNode = RootNode.create({
+export const rootNode = RootNode.create({
   ...nodeSettings,
   type: NodeNames.Root,
   id: generateUUID(),
 });
 
-const nodesStore = NodesStore.create({
+export const nodesStore = NodesStore.create({
   id: generateUUID(),
   rootNode,
 });

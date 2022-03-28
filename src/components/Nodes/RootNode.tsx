@@ -3,10 +3,10 @@ import { observer } from 'mobx-react-lite';
 import React, { memo, useRef } from 'react';
 import { BoxHelper, Object3D } from 'three';
 import { useHelper } from '@react-three/drei/native';
-import springPosition from '../../hooks/springPosition';
+import { RootNodeType, NodeType } from 'stores/Nodes';
+import springPosition from 'hooks/springPosition';
+import dragAndDroppable from 'hooks/dragAndDroppable';
 import { NodeProps, NodeTypeSwitch } from './index';
-import { RootNodeType, NodeType } from '../../stores/Nodes';
-import dragAndDroppable from '../../hooks/dragAndDroppable';
 
 const RootNodeComponent = observer((props: NodeProps) => {
   // Model:

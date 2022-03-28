@@ -4,10 +4,10 @@ import { observer } from 'mobx-react-lite';
 import { BoxHelper, Object3D } from 'three';
 import { useHelper } from '@react-three/drei/native';
 import { useCursor } from '@react-three/drei';
-import { NodeType } from '../../stores/Nodes';
+import { NodeType } from 'stores/Nodes';
+import springPosition from 'hooks/springPosition';
 import { rootStore, useStore } from '../../stores';
-import springPosition from '../../hooks/springPosition';
-import { NodeProps } from './index';
+import { NodeProps } from '.';
 
 const NodeComponent = observer((props: NodeProps) => {
   const { History } = useStore();
