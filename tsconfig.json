@@ -4,10 +4,15 @@
     "experimentalDecorators": true,
     "strict": true,
     "paths": {
+      "hooks": ["./src/hooks"],
       "hooks/*": ["./src/hooks/*"],
+      "components": ["./src/components"],
       "components/*": ["./src/components/*"],
+      "stores": ["./src/stores"],
       "stores/*": ["./src/stores/*"],
+      "utils": ["./src/utils"],
       "utils/*": ["./src/utils/*"],
+      "models": ["./src/models"],
       "models/*": ["./src/models/*"],
       "defaultSettings": ["./src/defaultSettings"],
     }

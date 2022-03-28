@@ -6,7 +6,7 @@ import { useHelper } from '@react-three/drei/native';
 import { RootNodeType, NodeType } from 'stores/Nodes';
 import springPosition from 'hooks/springPosition';
 import dragAndDroppable from 'hooks/dragAndDroppable';
-import { NodeProps, NodeTypeSwitch } from './index';
+import { NodeProps, NodeTypeSwitch } from '.';
 
 const RootNodeComponent = observer((props: NodeProps) => {
   // Model:

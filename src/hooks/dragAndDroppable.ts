@@ -3,8 +3,8 @@ import { useCursor } from '@react-three/drei';
 import { useGesture } from 'react-use-gesture';
 import { useThree } from '@react-three/fiber';
 import { NodeType } from 'stores/Nodes';
-import { arraysEqual } from '../utils';
-import { useStore } from '../stores';
+import { arraysEqual } from 'utils';
+import { useStore } from 'stores';
 
 const useDragAndDroppable = (model: NodeType) => {
   // Position:

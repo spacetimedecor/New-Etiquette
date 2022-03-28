@@ -6,7 +6,7 @@ import { useHelper } from '@react-three/drei/native';
 import { useCursor } from '@react-three/drei';
 import { NodeType } from 'stores/Nodes';
 import springPosition from 'hooks/springPosition';
-import { rootStore, useStore } from '../../stores';
+import { rootStore, useStore } from 'stores';
 import { NodeProps } from '.';
 
 const NodeComponent = observer((props: NodeProps) => {

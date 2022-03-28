@@ -5,7 +5,7 @@ import { useHelper } from '@react-three/drei';
 import springPosition from 'hooks/springPosition';
 import { Camera } from '@react-three/fiber';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '../stores';
+import { useStore } from 'stores';
 
 const Cameras = observer(() => {
   const {

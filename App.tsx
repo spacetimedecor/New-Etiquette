@@ -4,7 +4,7 @@ import { NodeTypeSwitch } from 'components/Nodes';
 import { OrbitControls } from '@react-three/drei';
 import Cameras from 'components/Cameras';
 import useKeyPress from 'hooks/useKeyPress';
-import { rootStore, StoreProvider, useStore } from './src/stores';
+import { rootStore, StoreProvider, useStore } from 'stores';
 import './App.css';
 
 export default function App() {
